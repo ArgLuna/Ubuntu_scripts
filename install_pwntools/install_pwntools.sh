@@ -6,3 +6,6 @@ pip install --upgrade capstone
 apt-get install -y ipython
 
 apt-get install -y nmap
+
+git clone https://github.com/longld/peda.git ~/peda
+echo "source ~/peda/peda.py" >> ~/.gdbinit
