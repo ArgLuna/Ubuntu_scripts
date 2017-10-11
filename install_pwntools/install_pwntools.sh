@@ -9,3 +9,5 @@ apt-get install -y nmap
 
 git clone https://github.com/longld/peda.git ~/peda
 echo "source ~/peda/peda.py" >> ~/.gdbinit
+
+apt-get install -y gcc-multilib
