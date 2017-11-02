@@ -1,4 +1,6 @@
 echo ">>Start to setup vim"
+echo ">>Updating..."
+apt-get update || exit
 echo ">>Copy .vimrc"
 cp ./vimrc ~/.vimrc -v
 echo ">>Enter ~/.vim/bundle"
