@@ -19,7 +19,7 @@ vim +PluginInstall +qall
 
 echo ">>Compile YCM and setup config"
 cd ~/.vim/bundle/YouCompleteMe
-./install.py --clang-completer
+YCM_CORES=1 ./install.py --clang-completer
 cp third_party/ycmd/examples/.ycm_extra_conf.py plugin/
 
 echo ">>Finished! Return to home directory"
