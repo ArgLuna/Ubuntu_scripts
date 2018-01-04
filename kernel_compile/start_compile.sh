@@ -15,7 +15,4 @@ make-kpkg clean
 # Tune “High Memory Support” lower.
 make prepare
 # start compile
-make-kpkg -j4 --initrd kernel_image kernel_headers
-
-
-echo compilation complete!
+make-kpkg -j4 --initrd kernel_image kernel_headers && echo compilation complete!
