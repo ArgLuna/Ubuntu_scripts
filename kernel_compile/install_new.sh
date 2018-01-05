@@ -3,6 +3,7 @@
 # This is a generic driver for a graphic framebuffer on intel boxes.
 echo vesafb | tee -a /etc/initramfs-tools/modules
 echo fbcon | tee -a /etc/initramfs-tools/modules
+cd ..
 dpkg -i *image*.deb || exit
 dpkg -i *headers*.deb || exit
 update-grub2

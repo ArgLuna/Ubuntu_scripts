@@ -21,6 +21,12 @@ if [ $EUID != 0 ]; then
 	exit
 fi
 
+if [ $1 == "--full-check" ]; then
+	CHECK_INTEGRITY="true"
+else
+	CHECK_INTEGRITY="false"
+fi
+
 echo -e "\E[1;35m*****updating..."
 tput init
 apt-get update
@@ -34,13 +40,22 @@ tput init
 cd /usr/src
 pwd
 
-# Get the source code.
+# Get the source code or check integrity or skip.
 if [ -d "/usr/src/ubuntu-$(lsb_release --codename | cut -f2)" ]; then
-	echo -e "\E[1;35mFound source code directory. Start checking..."
-	tput init
-	cd ubuntu-$(lsb_release --codename | cut -f2)
-	git fsck --full || echo -e "\E[1;31mIntegrity check fail..." && exit
-	cd ..
+	echo -e "\E[1;35mFound source code directory."
+	if [ CHECK_INTEGRITY == "false" ]; then
+		read -p "Check integrity? (y/n)" TMP
+		if [ TMP == "y"]; then
+			CHECK_INTEGRITY="true"
+		fi
+	fi
+	if [ CHECK_INTEGRITY == "true" ]; then
+		echo -e "\E[1;35mStart checking..."
+		tput init
+		cd ubuntu-$(lsb_release --codename | cut -f2)
+		git fsck --full || echo -e "\E[1;31mIntegrity check fail..." && exit
+		cd ..
+	fi
 else
 	echo -e "\E[1;35m*****getting source code..."
 	tput init
@@ -52,16 +67,16 @@ echo -e "\E[1;35m*****checking dependent packages..."
 tput init
 apt-get build-dep -y linux-image-$(uname -r) || exit
 
+# Enter the image diectory.
+echo -e "\E[1;35m*****Entering directory of source code"
+tput init
+cd ubuntu-$(lsb_release --codename | cut -f2)
+
 # Copy install.sh and uninstall.sh
 echo -e "\E[1;35m*****Copying install and uninstall scripts..."
 tput init
 cp ~/Ubuntu_scripts/kernel_compile/install_new.sh ./
 cp ~/Ubuntu_scripts/kernel_compile/uninstall.sh ./
-
-# Enter the image diectory.
-echo -e "\E[1;35m*****Entering directory of source code"
-tput init
-cd ubuntu-$(lsb_release --codename | cut -f2)
 
 # Copy start_compile.sh
 echo -e "\E[1;35m*****Copying start_compile.sh..."
