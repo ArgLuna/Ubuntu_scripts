@@ -1,3 +1,5 @@
+apt-get update
+
 apt-get install -y ipython python-tk
 
 apt-get install -y nmap
