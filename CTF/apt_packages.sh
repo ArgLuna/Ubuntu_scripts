@@ -6,3 +6,4 @@ apt-get install -y nmap
 
 apt-get install -y gcc-multilib
 
+apt-get install -y ruby gem
