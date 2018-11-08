@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # general
 apt-get install -y ruby gem
 
