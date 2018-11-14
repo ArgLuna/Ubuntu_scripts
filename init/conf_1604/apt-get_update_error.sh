@@ -1,3 +1,5 @@
 #!/bin/bash
 
-sudo apt-get remove -y libappstream3
+apt-get remove -y libappstream3
+apt-get update
+
