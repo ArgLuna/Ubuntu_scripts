@@ -12,6 +12,8 @@ Plugin 'VundleVim/Vundle.vim'
 
 " change those unnecessory whitespaces' color to red
 Plugin 'ntpeters/vim-better-whitespace'
+
+Plugin 'vim-airline/vim-airline'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -45,3 +47,18 @@ filetype plugin on
 " Put your non-Plugin stuff after this line
 set cursorline
 set tabstop=4
+
+" In normal mode, tab operations
+" :tabe <filename> (open <filename> in new tab)
+" <g><t> :tabn (next tab)
+" <g><T> :tabp (previous tab)
+" <num><t> :tabm <num> (switch to tab <num>)
+"
+" Buffer operations
+" :bn (next buffer)
+" :bp (previous buffer)
+" :bd (close current buffer)
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#tab_nr_type = 1
