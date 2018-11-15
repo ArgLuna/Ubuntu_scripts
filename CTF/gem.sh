@@ -4,7 +4,7 @@
 apt-get install -y ruby gem
 
 # for ruby pwntools, rake
-apt-get install ruby-dev
+apt-get install -y ruby-dev
 
 gem install one_gadget
 
