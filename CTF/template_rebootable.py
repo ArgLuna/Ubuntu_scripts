@@ -49,13 +49,10 @@ def padtoN(string, size, char = '\x00'):
 # lib offsets
 libc_base = 0
 if local and enable_env == False:
-    libc = ELF('./libc.so.6.local')
+    libc = ELF('/lib/x86_64-linux-gnu/libc.so.6')
 else:
     libc = ELF('./libc.so.6')
 # code offsets
-
-# plt, got
-got = 0     # <_GLOBAL_OFFSET_TABLE_> offset
 
 # other
 
