@@ -7,7 +7,7 @@ ls ~/.vim || (echo "directory not found" ; mkdir -v ~/.vim)
 ls ~/.vim/bundle || (echo "directory not found" ; mkdir -v ~/.vim/bundle)
 
 echo ">>Copy .vimrc"
-cp ./vimrc ~/.vimrc -v
+cp ~/Ubuntu_scripts/init/vimrc ~/.vimrc -v
 
 echo ">>Install Vundle and plugins"
 echo ">>Plugin list:"
