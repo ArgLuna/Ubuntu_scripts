@@ -40,6 +40,9 @@ def wait(isLocal = local, msg = 'pause', stime = 0.2):
 def padtoN(string, size, char = '\x00'):
 	return string.ljust(size, char)
 
+# global remote, for menu style
+gr = ''
+
 # plt & got
 
 # main
@@ -58,16 +61,18 @@ else:
 
 # start!
 while True:
-	r = boot()
-	gdbat(r)
-	wait()
+    r = boot()
+    gr = r
+    gdbat(r)
+    wait()
+    payload = ''
+    payload += ''
 
-	payload = ''
-	payload += ''
-
-	r.send(payload)
-	wait()
-	r.close()
-	break
+    r.send(payload)
+    wait()
+    r.close()
+    wait()
+    break
 
 r.interactive()
+r.close()
