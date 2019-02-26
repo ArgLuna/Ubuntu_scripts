@@ -2,6 +2,9 @@ echo ">>Start to setup vim"
 echo ">>Updating..."
 apt-get update || exit
 
+echo ">>Installing powerline fonts"
+apt-get install fonts-powerline
+
 echo ">>Check ~/.vim/bundle"
 ls ~/.vim || (echo "directory not found" ; mkdir -v ~/.vim)
 ls ~/.vim/bundle || (echo "directory not found" ; mkdir -v ~/.vim/bundle)
