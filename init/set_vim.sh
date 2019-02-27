@@ -2,6 +2,9 @@ echo ">>Start to setup vim"
 echo ">>Updating..."
 apt-get update || exit
 
+echo ">> installing vim..."
+apt-get install -y vim
+
 echo ">>Installing powerline fonts"
 apt-get install fonts-powerline
 
@@ -16,6 +19,8 @@ echo ">>Install Vundle and plugins"
 echo ">>Plugin list:"
 echo ">>** VundleVim/Vundle.vim"
 echo ">>** ntpeters/vim-better-whitespace"
+echo ">>** vim-airline/vim-airline"
+echo ">>** vim-airline/vim-airline-themes"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
