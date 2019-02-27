@@ -1,3 +1,4 @@
+#!/bin/bash
 apt-get update
 
 git config --global user.email ian955246@gmail.com

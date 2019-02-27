@@ -1,3 +1,4 @@
+#!/bin/bash
 echo ">>Start to setup vim"
 echo ">>Updating..."
 apt-get update || exit
