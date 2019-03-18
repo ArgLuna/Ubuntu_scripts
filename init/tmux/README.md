@@ -1,5 +1,8 @@
+# Reload conf
+    tmux source-file ~/.tmux.conf
+
 # Prefix
-Ctrl + b
+    Ctrl + b
 
 # Pane
     % divide a new pane horizontaly
