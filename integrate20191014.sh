@@ -1,7 +1,15 @@
 #!/bin/bash
-echo ">>Start to setup vim"
+cd
+src="`pwd`/Ubuntu_scripts"
+if [ ! -e "$src" ]
+then
+	echo "$src not found."
+	echo "Installation terminated."
+	exit
+fi
+
 echo ">>Updating..."
-apt-get update || exit
+sudo apt-get update || exit
 
 # git global config
 # git config --global user.email ian955246@gmail.com
@@ -9,17 +17,42 @@ apt-get update || exit
 # git config --global core.autocrlf false
 
 echo ">> installing vim..."
-apt-get install -y vim || exit
+sudo apt-get install -y vim || exit
 
 echo ">>Installing powerline fonts"
-apt-get install -y fonts-powerline || exit
+sudo apt-get install -y fonts-powerline || exit
 
 echo ">>Check ~/.vim/bundle"
-ls ~/.vim || (echo "directory not found" ; mkdir -v ~/.vim)
-ls ~/.vim/bundle || (echo "directory not found" ; mkdir -v ~/.vim/bundle)
+if [ -e ".vim" ]
+then
+	echo ".vim found."
+else
+	echo ".vim not found"
+	mkdir -v .vim
+fi
+
+if [ -e ".vim/bundle" ]
+then
+    echo ".vim/bundle found."
+else
+    echo ".vim/bundle not found"
+    mkdir -v .vim/bundle
+fi
 
 echo ">>Copy .vimrc"
-cp ~/Ubuntu_scripts/init/vimrc ~/.vimrc -v || exit
+cp "$src/init/vimrc" .vimrc -v || exit
+
+echo ">>Getting Vundle..."
+if [ -e ".vim/bundle/Vundle.vim" ]
+then
+	echo ".vim/bundle/Vundle.vim found. Updating..."
+	cd .vim/bundle/Vundle.vim
+	git pull
+	cd
+else
+	echo "Downloading Vundle..."
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
 
 echo ">>Install Vundle and plugins"
 echo ">>Plugin list:"
@@ -27,7 +60,7 @@ echo ">>** VundleVim/Vundle.vim"
 echo ">>** ntpeters/vim-better-whitespace"
 echo ">>** vim-airline/vim-airline"
 echo ">>** vim-airline/vim-airline-themes"
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+#git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall || exit
 
 echo ">>Finished (vim)!"
@@ -35,65 +68,85 @@ echo "Use the vim command to check vundle installation:"
 echo ":h vundle"
 echo "---------------------------------------------------------"
 echo ">>Installing zsh..."
-apt-get install -y zsh || exit
+sudo apt-get install -y zsh || exit
 
-echo ">>Shell test"
-which zsh || exit
-
-echo ">>Installing oh-my-zsh..."
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -) --unattended" || (echo "oh-my-zsh installation failed." ; exit)
+if [ ! -e ".oh-my-zsh" ]
+then
+	echo ">>Installing oh-my-zsh..."
+	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -) --unattended" || (echo "oh-my-zsh installation failed." ; exit)
+fi
 
 echo ">>Copy .zshrc"
-cd ~/
-echo "  export ZSH=\"`pwd`/.oh-my-zsh\"" > ~/.zshrc
-cat ~/Ubuntu_scripts/init/zsh/zshrc >> ~/.zshrc
-
-echo ">>Set default shell..."
-chsh -s `which zsh` || exit
+cd
+echo "  export ZSH=\"`pwd`/.oh-my-zsh\"" > .zshrc
+cat "$src/init/zsh/zshrc" >> .zshrc
 
 echo ">>Finish (zsh)!"
 echo "---------------------------------------------------------"
 echo ">>Installing tmux..."
-apt-get install -y tmux || exit
+sudo apt-get install -y tmux || exit
 
 echo ">>Copy .tmux.conf"
-cp ~/Ubuntu_scripts/init/tmux/tmux.conf ~/.tmux.conf -v || exit
+cp "$src/init/tmux/tmux.conf" .tmux.conf -v || exit
 
 echo ">>Finish (tmux)!"
 echo "---------------------------------------------------------"
 echo ">>Installing nmap..."
-apt-get install -y nmap || exit
+sudo apt-get install -y nmap || exit
 echo ">>Finish (nmap)!"
 echo "---------------------------------------------------------"
 echo ">>Installing curl..."
-apt-get install -y curl || exit
+sudo apt-get install -y curl || exit
 echo ">>Finish (curl)!"
 echo "---------------------------------------------------------"
 echo ">>Installing gdb..."
-apt-get install -y gdb || exit
+sudo apt-get install -y gdb || exit
 echo ">>Finish (gdb)!"
 echo "---------------------------------------------------------"
 echo ">>Installing peda..."
-git clone https://github.com/longld/peda.git ~/peda || exit
-echo "source ~/peda/peda.py" >> ~/.gdbinit
+if [ -e peda ]
+then
+	echo "Updating peda..."
+	cd peda
+	git pull || exit
+	cd
+else
+	echo "Installing peda..."
+	git clone https://github.com/longld/peda.git ~/peda || exit
+	echo "source ~/peda/peda.py" >> ~/.gdbinit
+fi
 
-git clone https://github.com/scwuaptx/Pwngdb ~/Pwngdb || exit
-cp ~/Pwngdb/.gdbinit ~/
+if [ -e Pwngdb ]
+then
+	echo "Updating Pwngdb..."
+    cd Pwngdb
+    git pull || exit
+    cd
+else
+	 echo "Installing Pwngdb..."
+	git clone https://github.com/scwuaptx/Pwngdb ~/Pwngdb || exit
+	cp ~/Pwngdb/.gdbinit ~/
+fi
+
 echo ">>Finish (peda)!"
 echo "---------------------------------------------------------"
 echo ">>Installing iPython3..."
-apt-get install -y ipython3 || exit
+sudo apt-get install -y ipython3 || exit
 echo ">>Finish (iPython3)!"
 echo "---------------------------------------------------------"
 echo ">>Installing python3-tk..."
-apt-get install -y python3-tk || exit
+sudo apt-get install -y python3-tk || exit
 echo ">>Finish (iPython3)!"
 echo "---------------------------------------------------------"
 echo ">>Installing pip3..."
-apt-get install -y python3-pip || exit
+sudo apt-get install -y python3-pip || exit
 echo ">>Finish (python3-pip)!"
 echo "---------------------------------------------------------"
 echo ">>Installing Scapy..."
 pip3 install scapy || exit
 echo ">>Finish (Scapy)!"
-
+echo "---------------------------------------------------------"
+echo ">>Set default shell..."
+chsh -s `which zsh` || exit
+sudo chsh -s `which zsh` || exit
+echo ">>Finish!"
