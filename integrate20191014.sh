@@ -44,7 +44,7 @@ echo ">>Installing oh-my-zsh..."
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -) --unattended" || (echo "oh-my-zsh installation failed." ; exit)
 
 echo ">>Copy .zshrc"
-cat /dev/null > ~/.zshrc
+cd ~/
 echo "  export ZSH=\"`pwd`/.oh-my-zsh\"" > ~/.zshrc
 cat ~/Ubuntu_scripts/init/zsh/zshrc >> ~/.zshrc
 
