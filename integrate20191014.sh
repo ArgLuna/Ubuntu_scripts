@@ -1,5 +1,4 @@
 #!/bin/bash
-#untest
 echo ">>Start to setup vim"
 echo ">>Updating..."
 apt-get update || exit
@@ -13,7 +12,7 @@ echo ">> installing vim..."
 apt-get install -y vim || exit
 
 echo ">>Installing powerline fonts"
-apt-get install fonts-powerline || exit
+apt-get install -y fonts-powerline || exit
 
 echo ">>Check ~/.vim/bundle"
 ls ~/.vim || (echo "directory not found" ; mkdir -v ~/.vim)
@@ -28,7 +27,7 @@ echo ">>** VundleVim/Vundle.vim"
 echo ">>** ntpeters/vim-better-whitespace"
 echo ">>** vim-airline/vim-airline"
 echo ">>** vim-airline/vim-airline-themes"
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim || exit
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall || exit
 
 echo ">>Finished (vim)!"
@@ -42,14 +41,12 @@ echo ">>Shell test"
 which zsh || exit
 
 echo ">>Installing oh-my-zsh..."
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" || (echo "oh-my-zsh installation failed." ; exit)
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -) --unattended" || (echo "oh-my-zsh installation failed." ; exit)
 
 echo ">>Copy .zshrc"
-#cp ~/Ubuntu_scripts/init/zsh/zshrc ~/zshrc -v || exit
-#cd ~/
+cat /dev/null > ~/.zshrc
 echo "  export ZSH=\"`pwd`/.oh-my-zsh\"" > ~/.zshrc
 cat ~/Ubuntu_scripts/init/zsh/zshrc >> ~/.zshrc
-#rm ~/zshrc
 
 echo ">>Set default shell..."
 chsh -s `which zsh` || exit
@@ -71,6 +68,10 @@ echo "---------------------------------------------------------"
 echo ">>Installing curl..."
 apt-get install -y curl || exit
 echo ">>Finish (curl)!"
+echo "---------------------------------------------------------"
+echo ">>Installing gdb..."
+apt-get install -y gdb || exit
+echo ">>Finish (gdb)!"
 echo "---------------------------------------------------------"
 echo ">>Installing peda..."
 git clone https://github.com/longld/peda.git ~/peda || exit
