@@ -82,7 +82,8 @@ fi
 
 echo ">>Copy .zshrc"
 cd
-echo "  export ZSH=\"`pwd`/.oh-my-zsh\"" > .zshrc
+echo "export ZSH=\"`pwd`/.oh-my-zsh\"" > .zshrc
+echo "export EDITOR='vim'" >> .zshrc
 cat "$src/init/zsh/zshrc" >> .zshrc
 
 echo ">>Finish (zsh)!"
