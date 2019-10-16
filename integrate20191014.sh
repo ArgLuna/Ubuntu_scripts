@@ -8,6 +8,10 @@ then
 	exit
 fi
 
+echo "Setting timezone to Asia/Taipei"
+sudo timedatectl set-timezone Asia/Taipei
+timedatectl
+
 echo ">>Updating..."
 sudo apt-get update || exit
 
@@ -145,6 +149,10 @@ echo "---------------------------------------------------------"
 echo ">>Installing Scapy..."
 pip3 install scapy || exit
 echo ">>Finish (Scapy)!"
+echo "---------------------------------------------------------"
+echo ">>Installing cscope..."
+apt-get install -y cscope || exit
+echo ">>Finish (cscope)!"
 echo "---------------------------------------------------------"
 echo ">>Set default shell..."
 chsh -s `which zsh` || exit
