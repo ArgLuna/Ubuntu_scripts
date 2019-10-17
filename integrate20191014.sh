@@ -155,6 +155,10 @@ echo ">>Installing cscope..."
 apt-get install -y cscope || exit
 echo ">>Finish (cscope)!"
 echo "---------------------------------------------------------"
+echo ">>Installing hping3..."
+apt-get install -y hping3 || exit
+echo ">>Finish (hping3)!"
+echo "---------------------------------------------------------"
 echo ">>Set default shell..."
 chsh -s `which zsh` || exit
 sudo chsh -s `which zsh` || exit
