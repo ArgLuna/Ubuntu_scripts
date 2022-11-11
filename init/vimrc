@@ -53,6 +53,7 @@ set expandtab
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%133v.\+/
 set incsearch
+set hlsearch
 
 " In normal mode, tab operations
 " :tabe <filename> (open <filename> in new tab)
