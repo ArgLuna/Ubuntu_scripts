@@ -182,7 +182,7 @@ disable_sudo_password() {
 
 enable_login_as_root_via_ssh() {
     # enable root password
-    sudo passwd root
+    sudo echo "password\npassword" | passwd root
     # TODO: replace PermitRootLogin prohibit-password
     # https://alexhost.com/faq/how-to-enable-root-login-via-ssh-in-ubuntu/
     sudo echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
