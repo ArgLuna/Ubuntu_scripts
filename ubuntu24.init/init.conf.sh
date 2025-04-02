@@ -155,4 +155,34 @@ set_hostname() {
         sudo systemctl restart systemd-hostnamed
         printf "systemd-hostnamed restart. Please login again to verify changes.\n"
     fi
+    unset tmp
+}
+
+disable_sudo_password() {
+    if [[ -z "$USER" ]] ; then
+        printf "\$USER is not set in init.conf.sh. Did not disable sudo password.\n"
+        return
+    fi
+    sudo grep -q "${USER} ALL=(ALL:ALL) NOPASSWD: ALL" /etc/sudoers.d/${USER}
+    if [[ $? == 0 ]] ; then
+        printf "disable sudo password already done. skip.\n"
+    else
+        printf "disable sudo password...\n"
+        echo "${USER} ALL=(ALL:ALL) NOPASSWD: ALL" | sudo -i tee /etc/sudoers.d/${USER}
+        if [[ $? == 0 ]] ; then
+            printf "disable sudo password done\n"
+        else
+            printf "[WARN] disable sudo password fail\n"
+        fi
+    fi
+}
+
+enable_login_as_root_via_ssh() {
+    # enable root password
+    sudo passwd root
+    # TODO: replace PermitRootLogin prohibit-password
+    # https://alexhost.com/faq/how-to-enable-root-login-via-ssh-in-ubuntu/
+    sudo echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
+    sudo systemctl restart ssh
+    printf "enable_login_as_root_via_ssh done\n"
 }

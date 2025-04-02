@@ -13,6 +13,11 @@ https://github.com/settings/keys
 5. clone repo
 git clone https://github.com/ArgLuna/Ubuntu_scripts
 
-6. run stage1.sh
+6. set the following fields in init.conf.sh if required. they are not set by default.
+USER
+for disable sudo password.
 
-7. run stage2.sh
+HOSTNAME
+change hostname.
+
+7. run run.sh
