@@ -7,7 +7,7 @@ disable_sudo_password() {
     if [[ $? == 0 ]] ; then
         printf "disable sudo password already done. skip.\n"
     else
-        logger "disable sudo password...\n"
+        printf "disable sudo password...\n"
         echo "${USER} ALL=(ALL:ALL) NOPASSWD: ALL" | sudo -i tee /etc/sudoers.d/${USER}
         if [[ $? == 0 ]] ; then
             printf "disable sudo password done\n"
@@ -22,7 +22,7 @@ enable_login_as_root_via_ssh() {
     sudo passwd root
     # TODO: replace PermitRootLogin prohibit-password
     # https://alexhost.com/faq/how-to-enable-root-login-via-ssh-in-ubuntu/
-    sudo cat 'PermitRootLogin yes' >> /etc/ssh/sshd_config
+    sudo echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
     sudo systemctl restart ssh
     printf "enable_login_as_root_via_ssh done\n"
 }
