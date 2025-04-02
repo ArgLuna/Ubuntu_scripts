@@ -123,3 +123,12 @@ disable_auto_update() {
     echo "---------------------------------------------------------"
 }
 
+pub_key_gen() {
+    # key gen
+    ssh-keygen -t rsa -b 4096 -m pem
+    # print pub key
+    printf "\n****** Print pub key ******\n\n"
+    cat ~/.ssh/id_rsa.pub
+    printf "\nAdd key to https://github.com/settings/keys\n"
+}
+
