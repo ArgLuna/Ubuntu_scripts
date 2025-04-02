@@ -2,6 +2,16 @@
 
 source init.conf.sh
 
+customize_tmux() {
+    echo ">>Installing..."
+    sudo apt-get install -y tmux || exit
+
+    echo ">>Copy .tmux.conf"
+    cp ./tmux.conf ~/.tmux.conf -v
+
+    echo ">>Finish!"
+}
+
 customize_vim() {
     printf "---------------------------------------------------------\n"
     printf ">>Installing powerline fonts\n"
@@ -60,6 +70,8 @@ disable_auto_update
 customize_vim
 
 customize_zsh
+
+customize_tmux
 
 set_default_shell
 
