@@ -12,6 +12,8 @@ TIMEZONE="Asia/Taipei"
 
 DEFAULT_SHELL="zsh"
 
+HOSTNAME=""
+
 # common pkgs for client and server.
 COMMON_PKGS=(vim nmap curl ipython3 scapy cscope hping3 vlan)
 # pkgs only resuired for server.
@@ -132,3 +134,25 @@ pub_key_gen() {
     printf "\nAdd key to https://github.com/settings/keys\n"
 }
 
+set_hostname() {
+    tmp=""
+    if [[ -z "$HOSTNAME" ]] ; then
+        printf "\$HOSTNAME is not set in init.conf.sh. Keep current hostname\n"
+        return
+    fi
+    if [[ $HOSTNAME == *_* ]] ; then
+        printf "hostname cannot contain \"_\"\n"
+        return
+    fi
+    if [[ $HOSTNAME == *"."* ]] ; then
+        printf "[WARN] Any substring after \".\" will not be display on terminal prompt.\n"
+    fi
+    sudo hostnamectl set-hostname $HOSTNAME
+    tmp=`hostnamectl status`
+    if [[ $tmp == *"Pretty hostname"* ]] ; then
+        printf "[WARN] hostname contain invalid char. Please refer to domain name rule.\n"
+    else
+        sudo systemctl restart systemd-hostnamed
+        printf "systemd-hostnamed restart. Please login again to verify changes.\n"
+    fi
+}
