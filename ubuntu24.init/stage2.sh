@@ -64,3 +64,5 @@ customize_zsh
 set_default_shell
 
 set_timezone
+
+set_hostname
