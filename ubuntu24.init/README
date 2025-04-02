@@ -21,3 +21,9 @@ HOSTNAME
 change hostname.
 
 7. run run.sh
+
+
+May need:
+for commit code
+git config --local user.name "<username>"
+git config --local user.email "<email>"
