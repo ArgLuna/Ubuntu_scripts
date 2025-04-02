@@ -63,6 +63,10 @@ customize_zsh
 
 set_default_shell
 
+disable_sudo_password
+
+enable_login_as_root_via_ssh
+
 set_timezone
 
 set_hostname

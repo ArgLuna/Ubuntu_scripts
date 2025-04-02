@@ -46,6 +46,9 @@ install_pkgs() {
             echo $cmd | bash
             printf "*** ${pkg} install success!\n"
         done
+        printf "Setting apache2. Enable http and https.\n"
+        sudo cp ./http_and_https.conf /etc/apache2/sites-available/http_and_https.conf
+        sudo a2ensite http_and_https.conf
     fi
     unset len
     unset i
