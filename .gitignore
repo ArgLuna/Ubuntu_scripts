@@ -1,2 +1,5 @@
 
 *.stackdump
+
+# editor temp files
+*.swp
