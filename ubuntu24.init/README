@@ -1,0 +1,15 @@
+1. generate pub key for github
+ssh-keygen -t rsa -b 4096 -m pem
+
+2. get key context
+cat .ssh/id_rsa.pub
+
+3. add key to github
+https://github.com/settings/keys
+
+4. clone repo
+git clone https://github.com/ArgLuna/Ubuntu_scripts
+
+5. run stage1.sh
+
+6. run stage2.sh
