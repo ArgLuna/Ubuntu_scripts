@@ -46,14 +46,31 @@ install_pkgs() {
             echo $cmd | bash
             printf "*** ${pkg} install success!\n"
         done
-        printf "Setting apache2. Enable http and https.\n"
-        sudo cp ./http_and_https.conf /etc/apache2/sites-available/http_and_https.conf
-        sudo a2ensite http_and_https.conf
+        enable_apache2_https
     fi
     unset len
     unset i
     unset pkg
     unset cmd
+}
+
+enable_apache2_https() {
+    printf "Setting apache2. Enable http and https.\n"
+    printf "*** Generate keys...\n"
+    sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/my-key.key -out /etc/ssl/certs/my-crt.crt
+    printf "*** Copy config file...\n"
+    sudo cp ./http_and_https.conf /etc/apache2/sites-available/http_and_https.conf
+    printf "*** Enable site....\n"
+    sudo a2ensite http_and_https.conf
+    if [[ -L "/etc/apache2/sites-enabled/000-default.conf" ]] ; then
+        printf "*** Disable default config.\n"
+        sudo a2dissite 000-default.conf
+    fi
+    printf "*** Restart apache2 service...\n"
+    sudo service apache2 restart || exit
+    printf "*** Check https functionality...\n"
+    curl -k https://localhost || exit
+    printf "*** Done.\n"
 }
 
 # remove trailing spaces from shell prompt. this will change current shell only.
