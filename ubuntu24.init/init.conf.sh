@@ -15,7 +15,7 @@ DEFAULT_SHELL="zsh"
 HOSTNAME=""
 
 # common pkgs for client and server.
-COMMON_PKGS=(vim nmap curl ipython3 scapy cscope hping3 vlan sshpass tcpreplay)
+COMMON_PKGS=(vim nmap curl ipython3 scapy cscope hping3 vlan sshpass tcpreplay sipp)
 # pkgs only resuired for server.
 SERVER_PKGS=(apache2 bind9)
 
@@ -199,7 +199,7 @@ disable_sudo_password() {
 
 enable_login_as_root_via_ssh() {
     # enable root password
-    sudo echo "password\npassword" | passwd root
+    sudo echo "password\npassword" | sudo passwd root
     # TODO: replace PermitRootLogin prohibit-password
     # https://alexhost.com/faq/how-to-enable-root-login-via-ssh-in-ubuntu/
     sudo echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
