@@ -56,6 +56,8 @@ install_pkgs() {
 
 enable_apache2_https() {
     printf "Setting apache2. Enable http and https.\n"
+    printf "*** Enable ssl MOD...\n"
+    sudo a2enmod ssl
     printf "*** Generate keys...\n"
     sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/my-key.key -out /etc/ssl/certs/my-crt.crt
     printf "*** Copy config file...\n"
