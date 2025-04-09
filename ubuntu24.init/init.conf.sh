@@ -15,7 +15,7 @@ DEFAULT_SHELL="zsh"
 HOSTNAME=""
 
 # common pkgs for client and server.
-COMMON_PKGS=(vim nmap curl ipython3 scapy cscope hping3 vlan sshpass)
+COMMON_PKGS=(vim nmap curl ipython3 scapy cscope hping3 vlan sshpass tcpreplay)
 # pkgs only resuired for server.
 SERVER_PKGS=(apache2 bind9)
 
